@@ -6,6 +6,7 @@ export default class Hand {
     value(): Number {
         return this.cards.map(x => x.value).reduce((a, c) => a + c, 0);
     }
+    
     toString(): string {
         return this.cards.map(x => x.toString()).join("\n");
     }

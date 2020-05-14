@@ -17,7 +17,7 @@ class Blackjack {
         this.Hit(this.playerHand)
         this.Hit(this.dealerDeck)
         this.Hit(this.dealerDeck)
-        console.log("\nPlayer:\n", this.playerHand.toString(), "\nDealer\n", this.dealerDeck.toString())
+        console.log("\nPlayer:\n", this.playerHand.toString(), "\nDealer:\n", this.dealerDeck.toString())
     }
 
     Hit(hand: Hand) {
