@@ -6,6 +6,7 @@ export default class Card {
     suite: Suite;
     value: Value;
     face: Face;
+    hidden = false;
 
     constructor(suite: Suite, value: Value, face: Face) {
         this.suite = suite;
