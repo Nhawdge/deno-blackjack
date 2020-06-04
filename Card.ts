@@ -7,7 +7,7 @@ export default class Card {
     value: Value;
     face: Face;
     hidden = false;
-
+ 
     constructor(suite: Suite, value: Value, face: Face) {
         this.suite = suite;
         this.value = value;

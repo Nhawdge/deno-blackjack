@@ -3,8 +3,6 @@ import Hand from "./Hand.ts";
 import Card from "./Card.ts";
 import { readLines } from "https://deno.land/std/io/bufio.ts";
 
-
-
 class Blackjack {
     Deck = new Deck();
     playerHand = new Hand();
@@ -14,8 +12,11 @@ class Blackjack {
         this.NewGame();
     }
 
-
     NewGame() {
+        this.Deck = new Deck();
+        this.playerHand = new Hand();
+        this.dealerDeck = new Hand();
+
         console.log("Welcome to Blackjack");
         this.Hit(this.playerHand);
         this.Hit(this.playerHand);
@@ -27,17 +28,32 @@ class Blackjack {
     }
 
     async GameLoop() {
+        var validInput = false;
+        while (!validInput) {
+            validInput = true;
+            var input = await prompt("What do you want to do? [hit/stay/quit]");
 
-        var input = await prompt("What do you want to do? [hit/stay/fold]");
-
-        switch (input.toLowerCase().trim()) {
-            case "hit":
-                this.Hit(this.playerHand);
-                break;
+            switch (input.toLowerCase().trim()) {
+                case "hit":
+                    this.Hit(this.playerHand);
+                    break;
+                case "stay":
+                    break;
+                case "quit":
+                    return;
+                default:
+                    validInput = false;
+            }
         }
-        this.Hit(this.dealerDeck);
-        this.GameStatus();
+        // Dealer's turn
+        if (this.dealerDeck.value == 21) {
+            //Stay
+        }
+        else if (this.dealerDeck.value < 16 || this.dealerDeck.value < this.playerHand.value) {
+            this.Hit(this.dealerDeck);
+        }
 
+        this.GameStatus();
         this.EndConditionCheck();
     }
 
@@ -58,7 +74,7 @@ class Blackjack {
 
     async EndConditionCheck() {
         var ended = false;
-        if (this.playerHand.value() > 21) {
+        if (this.playerHand.value > 21) {
             var playAgain = await prompt("You busted! Play again? [y/n]")
             if (playAgain.toLowerCase() == 'y') {
                 this.NewGame();
@@ -66,7 +82,7 @@ class Blackjack {
             else { ended = true; }
         }
 
-        if (this.dealerDeck.value() > 21) {
+        if (this.dealerDeck.value > 21) {
             var playAgain = await prompt("Dealer busted! Play again? [y/n]")
             if (playAgain.toLowerCase() == 'y') {
                 this.NewGame();
