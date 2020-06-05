@@ -19,7 +19,6 @@ export default class Deck {
 
     shuffle() {
         var shuffledDeck = new Array<Card>();
-        var debug = "";
         while (this.cards.length) {
             var rand = Math.floor((Math.random() * 1000) % this.cards.length);
             var card = this.cards.splice(rand, 1)[0];
